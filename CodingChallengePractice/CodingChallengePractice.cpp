@@ -102,7 +102,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
    HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
       CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
-
+   HWND hWndExample = CreateWindow("EDIT", "Text Goes Here", WS_VISIBLE | WS_CHILD | ES_LEFT, 10, 10, 100, 100, hWnd, NULL, hInstance, NULL);
    if (!hWnd)
    {
       return FALSE;
@@ -140,9 +140,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         wchar_t waCoord[20];
         wsprintf(waCoord, _T("(%i, %i)"), iPosX, iPosY);
 #ifdef _DEBUG
-        printf("%d %d\n", iPosX, iPosY);
+        printf("x: %d, y: %d\n", iPosX, iPosY);
 #endif // _DEBUG
-        MessageBox(hWnd, waCoord, _T("LMB Click"), MB_OK);
+        //MessageBox(hWnd, waCoord, _T("LMB Click"), MB_OK);
         
         break;
     }
@@ -168,7 +168,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
             // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
-
+            
+            TextOut(hdc, 10, 10, TEXT("Text Out String"), strlen("Text Out String"));
             EndPaint(hWnd, &ps);
         }
         break;
